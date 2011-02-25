@@ -205,7 +205,17 @@ public class CLI {
                             arguments.put(variable, 0);
                         }
                     } else {
-                        arguments.put(variable, message_split[location]);
+                        if (variable.contains(":")) {
+                            variables = variable.split(DVARIABLE);
+
+                            if (variables.length > 0) {
+                                arguments.put(variables[0], message_split[location]);
+                            } else {
+                                arguments.put(variable, message_split[location]);
+                            }
+                        } else {
+                            arguments.put(variable, message_split[location]);
+                        }
                     }
                 }
 

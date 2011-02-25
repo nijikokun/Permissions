@@ -148,7 +148,7 @@ public class Permissions extends JavaPlugin {
 
             this.Commands = new CLI();
             Commands.add("/pr|perms", "Reload Permissions.");
-            Commands.add("/pr|perms -reload|-r", "Reload Permissions.");
+            Commands.add("/pr|perms -reload|-r +world:all", "Reload World.");
         }
 
         @Override
@@ -184,8 +184,18 @@ public class Permissions extends JavaPlugin {
 
                     if(Misc.isEither(command, "reload", "-r")) {
                         if (Security.permission(player, "permissions.reload")) {
-                            Security.reload();
-                            player.sendMessage(ChatColor.GRAY + "[Permissions] Reload completed.");
+                            String world = Commands.getString("world");
+
+                            if (world.equalsIgnoreCase("all")) {
+                                Security.reload();
+                                Messaging.send(ChatColor.GRAY + "[Permissions] Reload completed.");
+                            } else {
+                                if(Security.reload(world)) {
+                                   Messaging.send(ChatColor.GRAY + "[Permissions] Reload of "+ world +" completed.");
+                                } else {
+                                   Messaging.send("&7[Permissions] "+ world +" does not exist!");
+                                }
+                            }
                         }
 
                         return;

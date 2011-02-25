@@ -77,6 +77,22 @@ public class Control extends PermissionHandler {
             }
         }
     }
+
+    public boolean reload(String world) {
+        if(this.Worlds.contains(world)) {
+            this.clearCache(world);
+
+            synchronized (Worlds) {
+                this.Worlds.remove(world);
+            }
+
+            this.forceLoadWorld(world);
+
+            return true;
+        }
+
+        return false;
+    }
     
     public void setDefaultWorld(String world) {
         // log.info("Default world: " + world);

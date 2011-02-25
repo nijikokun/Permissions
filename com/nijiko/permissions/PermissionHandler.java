@@ -40,6 +40,7 @@ public abstract class PermissionHandler {
     public abstract void load();
     public abstract void load(String world, Configuration config);
     public abstract void reload();
+    public abstract boolean reload(String world);
 
     // Cache
     public abstract void setCache(Map<String, Boolean> Cache);
