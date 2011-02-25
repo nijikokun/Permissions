@@ -76,12 +76,11 @@ public class Permissions extends JavaPlugin {
     private String DefaultWorld = "";
 
     public void onDisable() {
-        log.info("[" + name + "] version [" + version + "] (" + codename + ") fukkin died okay");
+        log.info("[" + name + "] version [" + version + "] (" + codename + ") Disabled.");
     }
 
-    public void onEnable() {
-        // Start Registration
-        getDataFolder().mkdirs();
+    public Permissions() {
+        new File("plugins" + File.separator + "Permissions" + File.separator).mkdirs();
 
         PropertyHandler server = new PropertyHandler("server.properties");
         DefaultWorld = server.getString("level-name");
@@ -91,23 +90,26 @@ public class Permissions extends JavaPlugin {
             Misc.touch(DefaultWorld + ".yml");
         }
 
+        Configuration configure = new Configuration(new File(getDataFolder(), DefaultWorld + ".yml"));
+
+        configure.load();
+
         // Gogo
-        this.config = new ConfigurationHandler(getConfiguration());
+        this.config = new ConfigurationHandler(configure);
 
-        // Load Configuration File
-        getConfiguration().load();
+        // Setup Permission
+        setupPermissions();
 
-        // Load Configuration Settings
-        this.config.load();
+        // Enabled
+        log.info("[" + name + "] version [" + version + "] (" + codename + ") was Initialized.");
+    }
 
+    public void onEnable() {
         // Server
         Server = getServer();
 
         // Register
         registerEvents();
-
-        // Setup Permission
-        setupPermissions();
 
         // Enabled
         log.info("[" + name + "] version [" + version + "] (" + codename + ") loaded");
