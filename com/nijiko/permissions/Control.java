@@ -68,6 +68,7 @@ public class Control extends PermissionHandler {
         this.clearAllCache();
 
         final List<String> Syncronized = new LinkedList<String>(Worlds);
+        Worlds = new LinkedList<String>();
 
         synchronized (Syncronized) {
             for (Iterator it = Syncronized.iterator(); it.hasNext(); ) {
