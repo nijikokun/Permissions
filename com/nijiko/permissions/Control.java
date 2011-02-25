@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -66,8 +67,13 @@ public class Control extends PermissionHandler {
     public void reload() {
         this.clearAllCache();
 
-        for(String world : Worlds) {
-            this.forceLoadWorld(world);
+        final List<String> Syncronized = new LinkedList<String>(Worlds);
+
+        synchronized (Syncronized) {
+            for (Iterator it = Syncronized.iterator(); it.hasNext(); ) {
+                String world = (String)it.next();
+                this.forceLoadWorld(world);
+            }
         }
     }
     
@@ -83,7 +89,7 @@ public class Control extends PermissionHandler {
     public boolean loadWorld(String world) {
         // log.info("Checking for the world: " + world);
         if(!this.Worlds.contains(world)) {
-            this.load(world, new Configuration(new File(directory + File.separator + world + ".yml")));
+            this.load(world, new Configuration(new File(this.directory + File.separator + world + ".yml")));
             log.info("Loaded world: " + world);
            return true;
         }
@@ -93,7 +99,7 @@ public class Control extends PermissionHandler {
     }
     
     public void forceLoadWorld(String world) {
-        this.load(world, new Configuration(new File(directory + File.separator + world + ".yml")));
+        this.load(world, new Configuration(new File(this.directory + File.separator + world + ".yml")));
     }
 
     public boolean checkWorld(String world) {
@@ -113,15 +119,12 @@ public class Control extends PermissionHandler {
     }
 
     public void load(String world, Configuration config) {
-        if (!(new File(directory + File.pathSeparator + world + ".yml").exists())) {
-            FileManager file = new FileManager(directory.getPath() + File.separator, world + ".yml", true);
+        if (!(new File(this.directory + File.pathSeparator + world + ".yml").exists())) {
+            FileManager file = new FileManager(this.directory.getPath() + File.separator, world + ".yml", true);
         }
-
-        // log.info("Configuration file: " + directory.getPath() + File.separator + world + ".yml");
 
         config.load();
 
-        // log.info("Loading world: " + world);
         this.Worlds.add(world);
         this.WorldConfiguration.put(world, config);
 

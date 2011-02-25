@@ -91,7 +91,6 @@ public class Permissions extends JavaPlugin {
         }
 
         Configuration configure = new Configuration(new File(getDataFolder(), DefaultWorld + ".yml"));
-
         configure.load();
 
         // Gogo
@@ -129,13 +128,13 @@ public class Permissions extends JavaPlugin {
      * @return PermissionHandler
      */
     public PermissionHandler getHandler() {
-        return this.Security;
+        return Security;
     }
 
     public void setupPermissions() {
-        Security = new Control(new Configuration(new File(getDataFolder(), DefaultWorld + ".yml")));
+        Security = new Control(new Configuration(new File("plugins" + File.separator + "Permissions", DefaultWorld + ".yml")));
         Security.setDefaultWorld(DefaultWorld);
-        Security.setDirectory(getDataFolder());
+        Security.setDirectory(new File("plugins" + File.separator + "Permissions"));
         Security.load();
     }
 
@@ -179,6 +178,8 @@ public class Permissions extends JavaPlugin {
                         }
 
                         Messaging.send("&7-------[ &fPermissions&7 ]-------");
+
+                        return;
                     }
 
                     if(Misc.isEither(command, "reload", "-r")) {
@@ -186,6 +187,8 @@ public class Permissions extends JavaPlugin {
                             Security.reload();
                             player.sendMessage(ChatColor.GRAY + "[Permissions] Reload completed.");
                         }
+
+                        return;
                     }
                 }
             }

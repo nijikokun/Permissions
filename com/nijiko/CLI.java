@@ -65,7 +65,7 @@ public class CLI {
                     if (split) {
                         for (String against : variable.split(CSPLIT)) {
                             if ((symbol + against).equalsIgnoreCase(message_split[location])) {
-                                return variable;
+                                return against;
                             }
                         }
 
