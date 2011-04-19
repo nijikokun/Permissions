@@ -1,13 +1,56 @@
 Permissions
 
 1) Introduction
-2) Contact
-
+2) Features
+3) For the users
+4) Installation
+5) Contact
 
 ---------------------------------------------------------------------------
 Introduction
 
 This project is a fork of https://github.com/Nijikokun/Permissions
+
+Permissions allows plugin-authors to utilize a permission system that handles
+group inheritance, globalized permission settings, and more. All the features
+of a fine-grained permission system in one plugin.
+
+
+---------------------------------------------------------------------------
+Features
+
+(This chapter has been taken from http://forums.bukkit.org/threads/inactive-admn-info-permissions-v2-1-continuing-the-legacy.1403/ )
+
+1. Groups
+2. Group Inheritance, Allows for groups to gain permissions from other groups.
+3. User Permission System
+4. Fine Grained Permission system.
+  1. Allowing for Globalized permissions
+5. Easy to use, setup, and implement.
+6. Two cache layers, first from file to memory, then from memory to cache.
+  1. Plugins can control cache since version 2.1
+7. And much more.
+
+
+---------------------------------------------------------------------------
+For the users
+
+(This chapter has been taken from http://forums.bukkit.org/threads/inactive-admn-info-permissions-v2-1-continuing-the-legacy.1403/ )
+
+Permissions gives server admins great control, mostly in-game reloading.
+Simply use /pr and the file will be re-cached and never touched again until
+you need to reload it. This allows you to quickly give your users the commands
+that they need without having to restart the server.
+
+
+---------------------------------------------------------------------------
+Installation
+
+Build the plugin:
+$ mvn clean install
+
+Copy the built jar from the target directory to the minecraft plugins
+directory.
 
 
 ---------------------------------------------------------------------------
