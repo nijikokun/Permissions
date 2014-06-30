@@ -115,7 +115,7 @@ public class Permissions extends JavaPlugin {
     }
 
     private void registerEvents() {
-        this.getServer().getPluginManager().registerEvent(Type.PLAYER_COMMAND, Listener, Priority.Monitor, this);
+        this.getServer().getPluginManager().registerEvent(Type.PLAYER_CHAT, Listener, Priority.Monitor, this);
     }
 
     /**
@@ -152,7 +152,7 @@ public class Permissions extends JavaPlugin {
         }
 
         @Override
-        public void onPlayerCommand(PlayerChatEvent event) {
+        public void onPlayerChat(PlayerChatEvent event) {
             final Player player = event.getPlayer();
             String message = event.getMessage();
 
